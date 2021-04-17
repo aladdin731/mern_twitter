@@ -18,7 +18,14 @@ const app = express();
 // import my key
 const db = require('./config/keys').mongoURI;
 
+const path = require('path');
 
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('frontend/public'));
+  app.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'public', 'index.html'));
+  })
+}
 
 // const passport = require('passport');
 
